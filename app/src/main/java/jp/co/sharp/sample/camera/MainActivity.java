@@ -62,7 +62,9 @@ public class MainActivity extends Activity implements MainActivityVoiceUIListene
     private CameraBridgeViewBase mOpenCvCameraView;
     private boolean              mIsJavaCamera = true;
     private MenuItem             mItemSwitchCamera = null;
-    CascadeClassifier detector;
+    private CascadeClassifier detector;
+    private static int noFaceFrameNum = 0;
+    private Size minFaceSize;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -88,8 +90,7 @@ public class MainActivity extends Activity implements MainActivityVoiceUIListene
         }else{
             Log.i("OpenCV", "successfully built !");
         }
-        detector = new CascadeClassifier(
-                "/storage/emulated/0/DCIM/100SHARP/haarcascade_frontalface_default.xml");
+        detector = new CascadeClassifier("/storage/emulated/0/DCIM/100SHARP/haarcascade_frontalface_default.xml");
     }
 
     /** Called when the activity is first created. */
@@ -104,9 +105,9 @@ public class MainActivity extends Activity implements MainActivityVoiceUIListene
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial1_activity_java_surface_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
-        detector = new CascadeClassifier(
-                "/storage/emulated/0/DCIM/100SHARP/haarcascade_frontalface_default.xml");
-//        mOpenCvCameraView.getWidth()
+        minFaceSize = new Size(640/10, 480/10);
+//        Log.i("OpenCV", String.valueOf(minFaceSize));
+
     }
 
     @Override
@@ -148,15 +149,26 @@ public class MainActivity extends Activity implements MainActivityVoiceUIListene
         try{
             Imgproc.cvtColor(src, src, Imgproc.COLOR_RGB2GRAY);
             MatOfRect faces = new MatOfRect();
-            detector.detectMultiScale(src, faces, 1.1, 2, 2, new Size(),
-                    new Size());
+            detector.detectMultiScale(src, faces, 1.1, 2, 2, minFaceSize, new Size());
             Rect[] facesArray = faces.toArray();
+            if (faces.empty()){
+                noFaceFrameNum++;
+//                Log.i("OpenCV", String.valueOf(noFaceFrameNum));
+            }
+            else{
+                noFaceFrameNum = 0;
+            }
             for (int i = 0; i < facesArray.length; i++) {
                 Imgproc.rectangle(detected, facesArray[i].tl(), facesArray[i].br(), new Scalar(0, 0, 255), 3);
             }
         }
         catch (Exception ex){
             Log.i("OpenCV", ex.getMessage());
+        }
+
+        if (noFaceFrameNum >= 60){
+            Log.i("OpenCV", "おきて！");
+            noFaceFrameNum = 0;
         }
 
         return detected;
