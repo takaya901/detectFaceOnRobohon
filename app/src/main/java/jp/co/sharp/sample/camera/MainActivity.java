@@ -62,6 +62,7 @@ public class MainActivity extends Activity implements MainActivityVoiceUIListene
     private CameraBridgeViewBase mOpenCvCameraView;
     private boolean              mIsJavaCamera = true;
     private MenuItem             mItemSwitchCamera = null;
+    CascadeClassifier detector;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -82,6 +83,13 @@ public class MainActivity extends Activity implements MainActivityVoiceUIListene
 
     public MainActivity() {
         Log.i(TAG, "Instantiated new " + this.getClass());
+        if(!OpenCVLoader.initDebug()){
+            Log.i("OpenCV", "Failed");
+        }else{
+            Log.i("OpenCV", "successfully built !");
+        }
+        detector = new CascadeClassifier(
+                "/storage/emulated/0/DCIM/100SHARP/haarcascade_frontalface_default.xml");
     }
 
     /** Called when the activity is first created. */
@@ -96,6 +104,9 @@ public class MainActivity extends Activity implements MainActivityVoiceUIListene
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial1_activity_java_surface_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
+        detector = new CascadeClassifier(
+                "/storage/emulated/0/DCIM/100SHARP/haarcascade_frontalface_default.xml");
+//        mOpenCvCameraView.getWidth()
     }
 
     @Override
@@ -132,7 +143,23 @@ public class MainActivity extends Activity implements MainActivityVoiceUIListene
     }
 
     public Mat onCameraFrame(Mat inputFrame) {
-        return inputFrame;
+        Mat src = inputFrame;
+        Mat detected = src.clone();
+        try{
+            Imgproc.cvtColor(src, src, Imgproc.COLOR_RGB2GRAY);
+            MatOfRect faces = new MatOfRect();
+            detector.detectMultiScale(src, faces, 1.1, 2, 2, new Size(),
+                    new Size());
+            Rect[] facesArray = faces.toArray();
+            for (int i = 0; i < facesArray.length; i++) {
+                Imgproc.rectangle(detected, facesArray[i].tl(), facesArray[i].br(), new Scalar(0, 0, 255), 3);
+            }
+        }
+        catch (Exception ex){
+            Log.i("OpenCV", ex.getMessage());
+        }
+
+        return detected;
     }
 
     /**
