@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">カメラ</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="app_explanation">カメラを利用するサンプル</string>
+
+    <string name="label_face_recog">顔を探すよ</string>
+    <string name="button_face_recog">首振無</string>
+    <string name="button_face_recog_move">首振有</string>
+
+    <string name="label_shoot_camera">写真を撮るよ</string>
+    <string name="button_camera_facerecog_true">顔認識有</string>
+    <string name="button_camera_facerecog_false">顔認識無</string>
+    <string name="text_description_api_result">撮影したファイルのパスを表示するよ</string>
+    <string name="text_api_result">file path :</string>
+
+    <string name="label_record_movie">動画を撮るよ</string>
+    <string name="button_movie_nolimit">時間指定無</string>
+    <string name="button_movie_10sec">10秒間</string>
+
+
+</resources>

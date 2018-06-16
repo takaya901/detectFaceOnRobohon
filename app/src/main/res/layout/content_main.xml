@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:showIn="@layout/activity_main" tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/app_explanation"
+                android:id="@+id/mode_value"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:background="#666666" />
+
+            <TextView
+                android:text="@string/label_face_recog"
+                android:id="@+id/label_facerecog"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_face_recog"
+                    android:id="@+id/face_recog_button"
+                    android:singleLine="false"
+                    android:textSize="32sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_face_recog_move"
+                    android:id="@+id/face_recog_move_button"
+                    android:singleLine="false"
+                    android:textSize="32sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:background="#666666"
+                android:id="@+id/view2"/>
+
+            <TextView
+                android:text="@string/label_shoot_camera"
+                android:id="@+id/label_camera"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_camera_facerecog_true"
+                    android:id="@+id/shoot_camera_face_button"
+                    android:singleLine="false"
+                    android:textSize="32sp"
+                    android:layout_marginTop="20dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_camera_facerecog_false"
+                    android:id="@+id/shoot_camera_button"
+                    android:singleLine="false"
+                    android:textSize="32sp"
+                    android:layout_marginTop="20dp" />
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/label_record_movie"
+                android:id="@+id/label_movie"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_movie_nolimit"
+                    android:id="@+id/record_movie_button"
+                    android:singleLine="false"
+                    android:textSize="32sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_movie_10sec"
+                    android:id="@+id/record_movie_10sec_button"
+                    android:singleLine="false"
+                    android:textSize="32sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:text="@string/text_description_api_result"
+                android:textSize="28sp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/text_file_path"
+                android:text="@string/text_api_result"
+                android:textSize="28sp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
